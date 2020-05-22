@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct SelectingModel {
+    var selectedBreeds: [String]
+}

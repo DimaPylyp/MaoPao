@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct ImageData: Decodable {
+    let url: String
+}

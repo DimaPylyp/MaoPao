@@ -6,4 +6,17 @@
 //  Copyright © 2020 DiMa. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct CatsData: Decodable {
+
+    let id: String
+    let name: String
+//    let weigth: Weight
+    let life_span: String
+    let intelligence: Int
+}
+
+struct Weight: Decodable {
+    let metric: String
+}
