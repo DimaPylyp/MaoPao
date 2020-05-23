@@ -9,5 +9,12 @@
 import Foundation
 
 struct ImageData: Decodable {
+    let breeds: [Breed]
     let url: String
+}
+
+struct Breed: Decodable {
+    let name: String
+    let life_span: String
+    let intelligence: Int
 }

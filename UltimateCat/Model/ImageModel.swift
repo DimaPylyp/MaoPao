@@ -10,4 +10,7 @@ import Foundation
 
 struct ImageModel {
     let imageURL: String
+    let breed: String
+    let lifeSpan: String
+    let intelligence: Int
 }

@@ -9,12 +9,45 @@
 import UIKit
 
 class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//    ??????????
     
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    
+    private func calculateSectionInset() -> CGFloat {
+        let deviceIsIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let deviceOrientationIsLandscape = UIDevice.current.orientation.isLandscape
+        let cellBodyViewIsExpended = deviceIsIpad || deviceOrientationIsLandscape
+        let cellBodyWidth: CGFloat = 236 + (cellBodyViewIsExpended ? 174 : 0)
+        
+        let buttonWidth: CGFloat = 50
+        
+        let inset = (collectionViewLayout.collectionView!.frame.width - cellBodyWidth + buttonWidth) / 4
+        return inset
+    }
+    
+    func configureCollectionViewLayoutItemSize() {
+        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
+        layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        
+        layout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - inset * 2, height: collectionViewLayout.collectionView!.frame.size.height * 0.8)
+    }
+    
+    private func indexOfMajorCell() -> Int {
+        let itemWidth = layout.itemSize.width
+        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
+        let index = Int(round(proportionalOffset))
+        let safeIndex = max(0, min(cellsWithImages.count - 1, index))
+        return safeIndex
+    }
+
+    private var indexOfCellBeforeDragging = 0
+
+//?????????????
     var cells = [CatsModel]()
-    var images = [UIImage]()
+    var cellsWithImages = [String: ImageModel]()
     
     init() {
-        let layout = UICollectionViewFlowLayout()
+        
         layout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: layout)
         
@@ -24,8 +57,8 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         register(CatsCollectionViewCell.self, forCellWithReuseIdentifier: CatsCollectionViewCell.reuseId)
         
         translatesAutoresizingMaskIntoConstraints = false
-        layout.minimumLineSpacing = 10
-        contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistanceToView, bottom: 0, right: Constants.rightDistanceToView)
+        layout.minimumLineSpacing = 0
+//        contentInset = UIEdgeInsets(top: 0, left: Constants.leftDistanceToView, bottom: 0, right: Constants.rightDistanceToView)
         
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
@@ -33,44 +66,64 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     
     func set(cells: [CatsModel]) {
         self.cells = cells
-        print("set function worked \(cells.count)")
     }
     
-    func setWithImages(picture: [ImageModel]) {
-        print("picture is \(picture)")
-        let imageURL = picture[0].imageURL
-        print("in the function \(imageURL)")
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: URL(string:imageURL)!) {
-                print(data)
-                if let image = UIImage(data: data){
-                    DispatchQueue.main.async {
-                        self!.images.append(image)
-                    }
-                }
-            }
-        }
+    func setWithImages(picture: ImageModel) {
+        self.cellsWithImages[picture.breed] = picture
+        self.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print ("\(images.count) created cells")
-        return images.count
+        //        print ("\(cellsWithImages?.count) created cells")
+        return cellsWithImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: CatsCollectionViewCell.reuseId, for: indexPath) as! CatsCollectionViewCell
-        //        cell.mainImageView.image = UIImage(named: "meme-template-zoom-background-9")
-        cell.mainImageView.image = images[indexPath.row]
-//        print(cells[indexPath.row].breed)
-//        cell.breedLabel.text = cells[indexPath.row].breed
-//        //        cell.weightLabel.text = cells[indexPath.row].weigth + "kg"
-//        cell.lifeSpanLabel.text = cells[indexPath.row].lifeSpan
-//        cell.inteleganceLabel.text = String(cells[indexPath.row].intelligence)
+        
+        cell.cat = cellsWithImages[cells[indexPath.row].breed]
+        
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: Constants.CatsItemWidth, height: frame.height * 0.8)
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: Constants.CatsItemWidth, height: frame.height * 0.8)
+//    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        indexOfCellBeforeDragging = indexOfMajorCell()
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>){
+        // Stop scrollView sliding:
+        targetContentOffset.pointee = scrollView.contentOffset
+        
+        // calculate where scrollView should snap to:
+        let indexOfMajorCell = self.indexOfMajorCell()
+        
+        // calculate conditions:
+        let swipeVelocityThreshold: CGFloat = 0.5 // after some trail and error
+        let hasEnoughVelocityToSlideToTheNextCell = indexOfCellBeforeDragging + 1 < cellsWithImages.count && velocity.x > swipeVelocityThreshold
+        let hasEnoughVelocityToSlideToThePreviousCell = indexOfCellBeforeDragging - 1 >= 0 && velocity.x < -swipeVelocityThreshold
+        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
+        let didUseSwipeToSkipCell = majorCellIsTheCellBeforeDragging && (hasEnoughVelocityToSlideToTheNextCell || hasEnoughVelocityToSlideToThePreviousCell)
+        
+        if didUseSwipeToSkipCell {
+            
+            let snapToIndex = indexOfCellBeforeDragging + (hasEnoughVelocityToSlideToTheNextCell ? 1 : -1)
+            let toValue = layout.itemSize.width * CGFloat(snapToIndex)
+            
+            // Damping equal 1 => no oscillations => decay animation:
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.x, options: .allowUserInteraction, animations: {
+                scrollView.contentOffset = CGPoint(x: toValue, y: 0)
+                scrollView.layoutIfNeeded()
+            }, completion: nil)
+            
+        } else {
+            // This is a much better way to scroll to a cell:
+            let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+            collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -85,17 +138,3 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
      */
     
 }
-
-//extension CatsCollectionView: CatsManagerDelegate{
-//    func didUpdateCats(_ catsManager: CatsManager, cats: [CatsModel]) {
-////        DispatchQueue.main.async {
-//            self.cells = cats
-////        }
-//    }
-//
-//    func didFailWithError(_ error: Error) {
-//        print(error)
-//    }
-//
-//
-//}

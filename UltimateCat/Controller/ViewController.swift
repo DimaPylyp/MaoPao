@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     var catsManager = CatsManager()
     var imageManager = ImageManager()
-    var selectingModel: [String] = ["abys", "aege", "abob", "acur"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +23,6 @@ class ViewController: UIViewController {
         imageManager.delegate = self
         
         catsManager.fetchCats()
-//        for i in selectingModel{
-//            print("Picture fetched")
-//        imageManager.fetchImage(for: i)
-//        }
-        catsCollectionView.reloadData()
-
         
         view.addSubview(catsCollectionView)
         
@@ -40,24 +33,11 @@ class ViewController: UIViewController {
         
         catsCollectionView.heightAnchor.constraint(equalToConstant: 600).isActive = true
         
-//        catsCollectionView.set(cells: testData)
-//        var selectedBreedsImages: [UIImage] = {
-//            var imagesArray = [UIImage]()
-//            for breed in selectingModel{
-//                DispatchQueue.global().async { [weak self] in
-//                    let imageURL = self?.catsManager.getPictureURL(for: breed)
-//                    print(imageURL)
-//                    if let data = try? Data(contentsOf: URL(string:imageURL!)!) {
-//                        print(data)
-//                        if let image = UIImage(data: data){
-//                        imagesArray.append(image)
-//                        }
-//                    }
-//                }
-//            }
-//            print(imagesArray)
-//            return imagesArray
-//        }()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        catsCollectionView.configureCollectionViewLayoutItemSize()
     }
     
 }
@@ -80,11 +60,10 @@ extension ViewController: CatsManagerDelegate{
 }
 
 extension ViewController: ImageManagerDelegate{
-    func didUpdateImage(_ imageManager: ImageManager, image: [ImageModel]) {
+    func didUpdateImage(_ imageManager: ImageManager, image: ImageModel) {
         DispatchQueue.main.async {
             self.catsCollectionView.setWithImages(picture: image)
             print("image Delegate")
-            self.catsCollectionView.reloadData()
         }
     }
 }

@@ -53,7 +53,7 @@ struct CatsManager {
             var cats: [CatsModel] = []
             for cat in decodedData{
                 i += 1
-                print(i)
+//                print(i)
 
                 let id = cat.id
                 let breed = cat.name
@@ -63,7 +63,7 @@ struct CatsManager {
                 let cat = CatsModel(id: id, breed: breed, lifeSpan: lifeSpan, intelligence: intelligence)
                 cats.append(cat)
             }
-            print(cats)
+//            print(cats)
             return cats
         } catch {
             delegate?.didFailWithError(error)

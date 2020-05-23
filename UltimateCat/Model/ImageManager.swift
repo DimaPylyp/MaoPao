@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ImageManagerDelegate {
-    func didUpdateImage(_ imageManager: ImageManager, image: [ImageModel])
+    func didUpdateImage(_ imageManager: ImageManager, image: ImageModel)
     func didFailWithError(_ error: Error)
 }
 
@@ -20,7 +20,7 @@ struct ImageManager {
     var delegate: ImageManagerDelegate?
     
     func fetchImage(for breed: String) {
-        let urlString = pictureURL + breed + "&size=full"
+        let urlString = pictureURL + breed + "&size=small"
         performRequest(with: urlString)
     }
     
@@ -34,8 +34,6 @@ struct ImageManager {
                    }
                    
                    if let safeData = data {
-//                    let dataString = String(data: safeData, encoding: .utf8)
-//                       print(dataString)
                     if let image = self.parseJSON(safeData){
                         self.delegate?.didUpdateImage(self, image: image)
                     }
@@ -45,20 +43,19 @@ struct ImageManager {
            }
        }
     
-    func parseJSON(_ imageData: Data) -> [ImageModel]? {
+    func parseJSON(_ imageData: Data) -> ImageModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData: [ImageData] = try decoder.decode([ImageData].self, from: imageData)
-            var i = 0
-            var image: [ImageModel] = []
+            var image = ImageModel(imageURL: "", breed: "", lifeSpan: "", intelligence: 0)
             for picture in decodedData{
-                i += 1
-                print(i)
                 let imageForBreed = picture.url
-                let newImage = ImageModel(imageURL: imageForBreed)
-                image.append(newImage)
+                let breed = picture.breeds[0].name
+                let lifeSpan = picture.breeds[0].life_span
+                let intelligence = picture.breeds[0].intelligence
+                let newImage = ImageModel(imageURL: imageForBreed, breed: breed, lifeSpan: lifeSpan, intelligence: intelligence)
+                image = newImage
             }
-            print(image)
             return image
         } catch {
             delegate?.didFailWithError(error)
