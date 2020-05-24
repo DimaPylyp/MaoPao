@@ -29,14 +29,14 @@ class CustomImageView: UIImageView {
         
         URLSession.shared.dataTask(with: url! as URL, completionHandler: { (data, response, error) in
             if error != nil {
-                print(error)
+                print(error ?? "")
                 return
             }
             
             DispatchQueue.global(qos: .background).async {
-
+                
                 // Background Thread
-
+                
                 DispatchQueue.main.async {
                     // Run UI Updates
                     

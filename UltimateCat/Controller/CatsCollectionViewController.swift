@@ -15,7 +15,7 @@ class CatsCollectionViewController: UIViewController {
     private let notificationCenter = NotificationCenter.default
     
     var catsManager = CatsManager()
-    var imageManager = ImageManager()
+    var imageManager = CatManager()
     
     private var backButton: BackButton = {
         let button = BackButton()
@@ -25,7 +25,6 @@ class CatsCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.modalPresentationStyle = .overFullScreen
         self.view.backgroundColor = UIColor.systemBackground
@@ -38,7 +37,7 @@ class CatsCollectionViewController: UIViewController {
         catsManager.fetchCats()
         
         view.addSubview(catsCollectionView)
-             view.addSubview(backButton)
+        view.addSubview(backButton)
         
         backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
@@ -56,7 +55,6 @@ class CatsCollectionViewController: UIViewController {
     }
     
     @objc func goBack(_ sender: UIButton) {
-        print("you clicked on button \(sender.tag)")
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -65,9 +63,8 @@ class CatsCollectionViewController: UIViewController {
         oneCatVC.modalPresentationStyle = .fullScreen
         //        present(oneCatVC, animated: true, completion: nil)
         present(oneCatVC, animated: true) {
-            oneCatVC.cat = notification.userInfo?["userInfo"] as! ImageModel
+            oneCatVC.cat = (notification.userInfo?["userInfo"] as! CatModel)
         }
-        print(notification.userInfo?["userInfo"] ?? [:])
     }
 }
 
@@ -75,9 +72,7 @@ extension CatsCollectionViewController: CatsManagerDelegate{
     func didUpdateCats(_ catsManager: CatsManager, cats: [CatsModel]) {
         DispatchQueue.global().async {
             self.catsCollectionView.set(cells: cats)
-            print("cats set")
             for cat in self.catsCollectionView.cells{
-                print(cat.id)
                 self.imageManager.fetchImage(for: cat.id)
             }
         }
@@ -88,11 +83,10 @@ extension CatsCollectionViewController: CatsManagerDelegate{
     }
 }
 
-extension CatsCollectionViewController: ImageManagerDelegate{
-    func didUpdateImage(_ imageManager: ImageManager, image: ImageModel) {
+extension CatsCollectionViewController: CatManagerDelegate{
+    func didUpdateImage(_ imageManager: CatManager, image: CatModel) {
         DispatchQueue.main.async {
             self.catsCollectionView.setWithImages(picture: image)
-            print("image Delegate")
         }
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 class OneCatViewController: UIViewController {
     
-    var cat: ImageModel?{
+    var cat: CatModel?{
         didSet{
             
             setupImage()
@@ -207,20 +207,16 @@ class OneCatViewController: UIViewController {
     private var lastSeparator = SeparatorView()
     
     @objc func goBack(_ sender: UIButton) {
-        print("you clicked on button \(sender.tag)")
         self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
-        print("One cat screen has been presented \(String(describing: cat))")
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
         
         setupScrollView()
         setupContentViews()
-        
-        
     }
     
     func setupScrollView() {
@@ -266,11 +262,8 @@ class OneCatViewController: UIViewController {
         detailsView.addSubview(originLabel)
         detailsView.addSubview(temperamentLabel)
         detailsView.addSubview(descriptionLabel)
-        
         contentView.addSubview(lastSeparator)
-        
-        // Do any additional setup after loading the view.
-        
+                
         catImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         catImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         catImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -279,20 +272,15 @@ class OneCatViewController: UIViewController {
         backButton.leadingAnchor.constraint(equalTo: catImageView.leadingAnchor, constant: 20).isActive = true
         backButton.topAnchor.constraint(equalTo: catImageView.topAnchor, constant: 20).isActive = true
         
-        //        breedLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         breedLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         breedLabel.topAnchor.constraint(equalTo: catImageView.bottomAnchor, constant: 25).isActive = true
-        //        breedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         
         separatorOne.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         separatorOne.topAnchor.constraint(equalTo: breedLabel.bottomAnchor, constant: 12.5).isActive = true
         separatorOne.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
         separatorOne.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        //        overviewView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         overviewView.topAnchor.constraint(equalTo: breedLabel.bottomAnchor, constant: 25).isActive = true
-        //        overviewView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4).isActive = true
-        //        overviewView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         overviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
         overviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 30).isActive = true
         
@@ -374,17 +362,4 @@ class OneCatViewController: UIViewController {
         lastSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         lastSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

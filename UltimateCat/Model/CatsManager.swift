@@ -34,8 +34,6 @@ struct CatsManager {
                    }
                    
                    if let safeData = data {
-//                    let dataString = String(data: safeData, encoding: .utf8)
-//                       print(dataString)
                     if let cats = self.parseJSON(safeData){
                         self.delegate?.didUpdateCats(self, cats: cats)
                     }
@@ -53,17 +51,13 @@ struct CatsManager {
             var cats: [CatsModel] = []
             for cat in decodedData{
                 i += 1
-//                print(i)
-
                 let id = cat.id
                 let breed = cat.name
-//                let weight = cat.weigth.metric
                 let intelligence = cat.intelligence
                 let lifeSpan = cat.life_span
                 let cat = CatsModel(id: id, breed: breed, lifeSpan: lifeSpan, intelligence: intelligence)
                 cats.append(cat)
             }
-//            print(cats)
             return cats
         } catch {
             delegate?.didFailWithError(error)

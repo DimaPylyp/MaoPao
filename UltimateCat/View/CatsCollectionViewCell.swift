@@ -12,7 +12,7 @@ class CatsCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "CatsCollectionViewCell"
     
-    var cat: ImageModel?{
+    var cat: CatModel?{
         didSet{
             
             setupImage()

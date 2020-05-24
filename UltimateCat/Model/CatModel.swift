@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ImageModel {
+struct CatModel {
     let imageURL: String
     let breed: String
     let weight: String

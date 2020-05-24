@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ImageData: Decodable {
+struct CatData: Decodable {
     let breeds: [Breed]
     let url: String
 }
@@ -23,7 +23,6 @@ struct Breed: Decodable {
     let description: String
     let adaptability: Int
     let child_friendly: Int
-//    let cat_friendly: Int
     let dog_friendly: Int
     let energy_level: Int
     let grooming: Int

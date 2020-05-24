@@ -86,19 +86,14 @@ class MainViewController: UIViewController {
         
         pickButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true
         pickButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
     }
     
     @objc func tapPick(_ sender: UIButton) {
-       
+        
         catsCollectionViewController.modalPresentationStyle = .fullScreen
         present(catsCollectionViewController, animated: true) {
             self.catsCollectionViewController.catsCollectionView.scrollToItem(at:[0, 0], at: .centeredHorizontally, animated: true)
-
         }
-        
-      print("you clicked on button \(sender.tag)")
     }
     
     @objc func singleTap(sender: UITapGestureRecognizer) {
@@ -126,33 +121,15 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("Search bar editing did begin..")
-    }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("Search bar editing did end..")
-    }
     
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        search(shouldShow: false)
-//        searchBar.endEditing(true)
-//    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    {
-//        var catId = ""
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         var indexPathRow = 0
         for cat in catsCollectionViewController.catsCollectionView.cells{
             if cat.breed == searchBar.searchTextField.text{
-//                catId = cat.id
-//                print("\(catId)")
                 
                 catsCollectionViewController.modalPresentationStyle = .fullScreen
-//                catsCollectionViewController.catsCollectionView.cellsWithImages.removeAll()
-//                catsCollectionViewController.imageManager.fetchImage(for: catId)
                 present(catsCollectionViewController, animated: true){
-                    print(indexPathRow)
                     self.catsCollectionViewController.catsCollectionView.scrollToItem(at:[0, indexPathRow], at: .centeredHorizontally, animated: true)
                 }
                 break
@@ -163,9 +140,5 @@ extension MainViewController: UISearchBarDelegate {
             searchBar.text = ""
             searchBar.placeholder = "Try Again"
         }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Search text is \(searchText)")
     }
 }
