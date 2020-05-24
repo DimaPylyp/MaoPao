@@ -14,10 +14,8 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     private func calculateSectionInset() -> CGFloat {
-        let deviceIsIpad = UIDevice.current.userInterfaceIdiom == .pad
-        let deviceOrientationIsLandscape = UIDevice.current.orientation.isLandscape
-        let cellBodyViewIsExpended = deviceIsIpad || deviceOrientationIsLandscape
-        let cellBodyWidth: CGFloat = 236 + (cellBodyViewIsExpended ? 174 : 0)
+
+        let cellBodyWidth: CGFloat = 236
         
         let buttonWidth: CGFloat = 50
         
@@ -29,7 +27,7 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
-        layout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - inset * 2, height: collectionViewLayout.collectionView!.frame.size.height * 0.8)
+        layout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - inset * 2, height: collectionViewLayout.collectionView!.frame.size.height * 0.9)
     }
     
     private func indexOfMajorCell() -> Int {
@@ -51,7 +49,7 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         layout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: layout)
         
-        backgroundColor = .white
+        backgroundColor = UIColor.systemBackground
         delegate = self
         dataSource = self
         register(CatsCollectionViewCell.self, forCellWithReuseIdentifier: CatsCollectionViewCell.reuseId)
@@ -124,6 +122,12 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
             let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
             collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("tap")
+        let loginResponse = ["userInfo": cellsWithImages[cells[indexPath.row].breed]!]
+        NotificationCenter.default.post(name:NSNotification.Name("com.user.login.success"), object: nil, userInfo: loginResponse as [AnyHashable : Any])
     }
     
     required init?(coder: NSCoder) {

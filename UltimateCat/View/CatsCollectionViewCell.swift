@@ -18,11 +18,30 @@ class CatsCollectionViewCell: UICollectionViewCell {
             setupImage()
             
             breedLabel.text = cat?.breed
-            lifeSpanLabel.text = cat?.lifeSpan
+                
+            if let lifeSpan = cat?.lifeSpan {
+                let lifeSpanText = "Life span: \(lifeSpan) years"
+                lifeSpanLabel.text = lifeSpanText
+            }
+            
+            if let weight = cat?.weight {
+                let weightText = "Weight: \(weight) kg"
+                weightLabel.text = weightText
+            }
             
             if let intelligance = cat?.intelligence {
                 let intelliganceText = "Intelligance: \(intelligance)"
                 intelliganceLabel.text = intelliganceText
+            }
+            
+            if let adaptability = cat?.adaptability {
+                let adaptabilityText = "Adaptability: \(adaptability)"
+                adaptabilityLabel.text = adaptabilityText
+            }
+            
+            if let grooming = cat?.grooming {
+                let groomingText = "Grooming: \(grooming)"
+                groomingLabel.text = groomingText
             }
         }
     }
@@ -35,8 +54,7 @@ class CatsCollectionViewCell: UICollectionViewCell {
     
     let cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-//        view.frame.size = CGSize(width: 100, height: 100)
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         return view
@@ -53,58 +71,33 @@ class CatsCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let breedLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
+    let breedLabel: ParameterLabel = {
+        let label = ParameterLabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return label
     }()
     
-    let weightLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let weightLabel = ParameterLabel()
     
-    let lifeSpanLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let lifeSpanLabel = ParameterLabel()
     
-    let intelliganceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let intelliganceLabel = ParameterLabel()
+    
+    let adaptabilityLabel = ParameterLabel()
+    
+    let groomingLabel = ParameterLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = .white
-        
+                
         addSubview(cardView)
-//        addSubview(mainImageView)
-//        addSubview(breedLabel)
-//        addSubview(weightLabel)
-//        addSubview(lifeSpanLabel)
-//        addSubview(intelliganceLabel)
         cardView.addSubview(mainImageView)
         cardView.addSubview(breedLabel)
         cardView.addSubview(weightLabel)
         cardView.addSubview(lifeSpanLabel)
         cardView.addSubview(intelliganceLabel)
+        cardView.addSubview(adaptabilityLabel)
+        cardView.addSubview(groomingLabel)
         
         cardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
         cardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
@@ -117,32 +110,37 @@ class CatsCollectionViewCell: UICollectionViewCell {
         mainImageView.topAnchor.constraint(equalTo: cardView.topAnchor).isActive = true
         mainImageView.heightAnchor.constraint(equalTo: cardView.heightAnchor, multiplier: 1/1.5).isActive = true
         
-        breedLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        breedLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        breedLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        breedLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
         breedLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 10).isActive = true
-//        breedLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
-        weightLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        weightLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        weightLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        weightLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
         weightLabel.topAnchor.constraint(equalTo: breedLabel.bottomAnchor, constant: 10).isActive = true
-//        weightLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
-        lifeSpanLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        lifeSpanLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        lifeSpanLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        lifeSpanLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
         lifeSpanLabel.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 10).isActive = true
-//        lifeSpanLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
-        intelliganceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        intelliganceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        intelliganceLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        intelliganceLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
         intelliganceLabel.topAnchor.constraint(equalTo: lifeSpanLabel.bottomAnchor, constant: 10).isActive = true
-//        inteleganceLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        adaptabilityLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        adaptabilityLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
+        adaptabilityLabel.topAnchor.constraint(equalTo: intelliganceLabel.bottomAnchor, constant: 10).isActive = true
+        
+        groomingLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10).isActive = true
+        groomingLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 10).isActive = true
+        groomingLabel.topAnchor.constraint(equalTo: adaptabilityLabel.bottomAnchor, constant: 10).isActive = true
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.cornerRadius = 20
-        cardView.layer.shadowRadius = 1
+        cardView.layer.shadowRadius = 9
         cardView.layer.shadowOpacity = 0.3
         cardView.layer.shadowOffset = CGSize(width: 5, height: 8)
         

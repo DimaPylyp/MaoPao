@@ -15,6 +15,24 @@ struct ImageData: Decodable {
 
 struct Breed: Decodable {
     let name: String
+    let weight: Weight
     let life_span: String
     let intelligence: Int
+    let temperament: String
+    let origin: String
+    let description: String
+    let adaptability: Int
+    let child_friendly: Int
+//    let cat_friendly: Int
+    let dog_friendly: Int
+    let energy_level: Int
+    let grooming: Int
+    let health_issues: Int
+    let stranger_friendly: Int
+    let hairless: Int
+    let hypoallergenic: Int
+}
+
+struct Weight: Decodable {
+    let metric: String
 }

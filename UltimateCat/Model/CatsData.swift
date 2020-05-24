@@ -17,6 +17,6 @@ struct CatsData: Decodable {
     let intelligence: Int
 }
 
-struct Weight: Decodable {
-    let metric: String
-}
+//struct Weight: Decodable {
+//    let metric: String
+//}
