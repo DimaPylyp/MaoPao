@@ -134,11 +134,8 @@ class OneCatViewController: UIViewController {
         return imageView
     }()
     
-    private var backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))?.withTintColor(.white).withRenderingMode(.alwaysOriginal), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.frame.size = CGSize(width: 50, height: 50)
+    private var backButton: BackButton = {
+        let button = BackButton()
         button.addTarget(self, action: #selector(goBack(_:)), for: .touchUpInside)
         return button
     }()
@@ -219,7 +216,6 @@ class OneCatViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        //        breedLabel.text = "TEst Test Test"
         
         setupScrollView()
         setupContentViews()

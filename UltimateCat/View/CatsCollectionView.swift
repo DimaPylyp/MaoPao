@@ -67,6 +67,7 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     }
     
     func setWithImages(picture: ImageModel) {
+        print("Im here")
         self.cellsWithImages[picture.breed] = picture
         self.reloadData()
     }
@@ -80,7 +81,6 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         let cell = dequeueReusableCell(withReuseIdentifier: CatsCollectionViewCell.reuseId, for: indexPath) as! CatsCollectionViewCell
         
         cell.cat = cellsWithImages[cells[indexPath.row].breed]
-        
         return cell
     }
     
@@ -127,7 +127,7 @@ class CatsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("tap")
         let loginResponse = ["userInfo": cellsWithImages[cells[indexPath.row].breed]!]
-        NotificationCenter.default.post(name:NSNotification.Name("com.user.login.success"), object: nil, userInfo: loginResponse as [AnyHashable : Any])
+        NotificationCenter.default.post(name:NSNotification.Name("cat selected"), object: nil, userInfo: loginResponse as [AnyHashable : Any])
     }
     
     required init?(coder: NSCoder) {

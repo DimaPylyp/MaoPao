@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		323CA0E0247ADCAF00CF0280 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323CA0DF247ADCAF00CF0280 /* MainViewController.swift */; };
+		323CA0E2247AE3AE00CF0280 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323CA0E1247AE3AE00CF0280 /* Constants.swift */; };
+		323CA0E4247AEFC900CF0280 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323CA0E3247AEFC900CF0280 /* BackButton.swift */; };
 		32BAD4642479669D00F01E34 /* OneCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAD4632479669D00F01E34 /* OneCatViewController.swift */; };
-		32BAD4682479E20E00F01E34 /* OneCatScreenPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAD4672479E20E00F01E34 /* OneCatScreenPhotoImageView.swift */; };
-		32BAD46A2479F7CF00F01E34 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAD4692479F7CF00F01E34 /* File.swift */; };
+		32BAD46A2479F7CF00F01E34 /* UILabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAD4692479F7CF00F01E34 /* UILabels.swift */; };
 		32BAD46C247A948000F01E34 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BAD46B247A948000F01E34 /* SeparatorView.swift */; };
 		32D6E51524617FE20052FE2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6E51424617FE20052FE2E /* AppDelegate.swift */; };
 		32D6E51724617FE20052FE2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6E51624617FE20052FE2E /* SceneDelegate.swift */; };
-		32D6E51924617FE20052FE2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6E51824617FE20052FE2E /* ViewController.swift */; };
+		32D6E51924617FE20052FE2E /* CatsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6E51824617FE20052FE2E /* CatsCollectionViewController.swift */; };
 		32D6E51C24617FE20052FE2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D6E51A24617FE20052FE2E /* Main.storyboard */; };
 		32D6E51E24617FE30052FE2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32D6E51D24617FE30052FE2E /* Assets.xcassets */; };
 		32D6E52124617FE30052FE2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D6E51F24617FE30052FE2E /* LaunchScreen.storyboard */; };
@@ -30,14 +32,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		323CA0DF247ADCAF00CF0280 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		323CA0E1247AE3AE00CF0280 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		323CA0E3247AEFC900CF0280 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		32BAD4632479669D00F01E34 /* OneCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCatViewController.swift; sourceTree = "<group>"; };
-		32BAD4672479E20E00F01E34 /* OneCatScreenPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCatScreenPhotoImageView.swift; sourceTree = "<group>"; };
-		32BAD4692479F7CF00F01E34 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		32BAD4692479F7CF00F01E34 /* UILabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabels.swift; sourceTree = "<group>"; };
 		32BAD46B247A948000F01E34 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		32D6E51124617FE20052FE2E /* UltimateCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32D6E51424617FE20052FE2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32D6E51624617FE20052FE2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		32D6E51824617FE20052FE2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		32D6E51824617FE20052FE2E /* CatsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsCollectionViewController.swift; sourceTree = "<group>"; };
 		32D6E51B24617FE20052FE2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32D6E51D24617FE30052FE2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32D6E52024617FE30052FE2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -110,8 +114,9 @@
 		32D6E529246180100052FE2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				32D6E51824617FE20052FE2E /* ViewController.swift */,
+				32D6E51824617FE20052FE2E /* CatsCollectionViewController.swift */,
 				32BAD4632479669D00F01E34 /* OneCatViewController.swift */,
+				323CA0DF247ADCAF00CF0280 /* MainViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 				32EB905E2476F2C000E73CAC /* ImageManager.swift */,
 				32EB905A2476F1B700E73CAC /* ImageModel.swift */,
 				32EB905C2476F21600E73CAC /* ImageData.swift */,
+				323CA0E1247AE3AE00CF0280 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -134,9 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				32EB90552476D56A00E73CAC /* UIImageView.swift */,
-				32BAD4672479E20E00F01E34 /* OneCatScreenPhotoImageView.swift */,
-				32BAD4692479F7CF00F01E34 /* File.swift */,
+				32BAD4692479F7CF00F01E34 /* UILabels.swift */,
 				32BAD46B247A948000F01E34 /* SeparatorView.swift */,
+				323CA0E3247AEFC900CF0280 /* BackButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -212,13 +218,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323CA0E4247AEFC900CF0280 /* BackButton.swift in Sources */,
 				32EB905B2476F1B700E73CAC /* ImageModel.swift in Sources */,
-				32D6E51924617FE20052FE2E /* ViewController.swift in Sources */,
+				323CA0E2247AE3AE00CF0280 /* Constants.swift in Sources */,
+				32D6E51924617FE20052FE2E /* CatsCollectionViewController.swift in Sources */,
 				32EB90542474388600E73CAC /* CatsCollectionViewCell.swift in Sources */,
 				32D6E51524617FE20052FE2E /* AppDelegate.swift in Sources */,
 				32BAD46C247A948000F01E34 /* SeparatorView.swift in Sources */,
 				32BAD4642479669D00F01E34 /* OneCatViewController.swift in Sources */,
-				32BAD46A2479F7CF00F01E34 /* File.swift in Sources */,
+				32BAD46A2479F7CF00F01E34 /* UILabels.swift in Sources */,
 				32D6E52B246180A70052FE2E /* CatsManager.swift in Sources */,
 				32EB90562476D56A00E73CAC /* UIImageView.swift in Sources */,
 				32EB90522473F0CB00E73CAC /* CatsCollectionView.swift in Sources */,
@@ -227,8 +235,8 @@
 				32D6E5342461C7CF0052FE2E /* CatsModel.swift in Sources */,
 				32D6E51724617FE20052FE2E /* SceneDelegate.swift in Sources */,
 				32EB905D2476F21600E73CAC /* ImageData.swift in Sources */,
+				323CA0E0247ADCAF00CF0280 /* MainViewController.swift in Sources */,
 				32EB905F2476F2C000E73CAC /* ImageManager.swift in Sources */,
-				32BAD4682479E20E00F01E34 /* OneCatScreenPhotoImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dima.UltimateCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -400,7 +408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dima.UltimateCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
